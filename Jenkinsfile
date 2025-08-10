@@ -1,7 +1,5 @@
 pipeline {
-   agent any
-
-     }
+    agent any
     
     stages {
         stage('Checkout') {
@@ -57,7 +55,7 @@ pipeline {
 
         stage('Publish Artifacts (Optional)') {
             when {
-                expression { env.BUILD_RESULT == null || env.BUILD_RESULT == 'SUCCESS' }
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
             }
             steps {
                 bat "dotnet publish \"${SOLUTION_NAME}\" --configuration ${CONFIGURATION} --output \"${ARTIFACTS_DIR}\\publish\""
@@ -80,5 +78,4 @@ pipeline {
             echo "Build failed! ❌"
         }
     }
-}
 }
